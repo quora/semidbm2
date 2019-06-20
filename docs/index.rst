@@ -22,7 +22,7 @@ these key/value pairs::
 
 It was written with these things in mind:
 
-* Pure python, supporting python 2.6, 2.7, 3.3, and 3.4.
+* Pure python, supporting python 2.6, 2.7, 3.4, 3.6 and 3.7.
 * Cross platform, works on Windows, Linux, Mac OS X.
 * Supports CPython, pypy, and jython (versions 2.7-b3 and higher).
 * Simple and Fast (See :doc:`benchmarks`).
