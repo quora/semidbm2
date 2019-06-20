@@ -374,6 +374,14 @@ class TestRemapping(SemiDBMTest):
 
 
 class TestReadOnlyMode(SemiDBMTest):
+    def setUp(self):
+        super(TestReadOnlyMode, self).setUp()
+
+        # Ensure db directory exists, since read only mode
+        # cannot create the db directory
+        db = semidbm.open(self.dbdir, 'c')
+        db.close()
+        
     def open_db_file(self, **kwargs):
         return semidbm.open(self.dbdir, 'r', **kwargs)
 

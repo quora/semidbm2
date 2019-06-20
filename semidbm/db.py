@@ -237,6 +237,14 @@ class _SemiDBMReadOnly(_SemiDBM):
     def __setitem__(self, key, value):
         self._method_not_allowed('setitem')
 
+    def _load_db(self):
+        self._index = self._load_index(self._data_filename)
+        self._data_fd = os.open(self._data_filename, compat.DATA_OPEN_FLAGS_READONLY)
+        self._current_offset = os.lseek(self._data_fd, 0, os.SEEK_END)
+
+    def _write_headers(self, filename):
+        pass
+
     def sync(self):
         self._method_not_allowed('sync')
 
