@@ -1,18 +1,16 @@
 language: python
 python:
-  - "2.6"
   - "2.7"
   - "3.3"
   - "3.4"
   - "pypy"
   - "pypy3"
 install:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
   - pip install coverage coveralls
 script:
   - coverage erase
   - coverage run --source semidbm test_semidbm.py
 notifications:
   email:
-    - js@jamesls.com
+    - pankow.ben@gmail.com
 after_success: coveralls
