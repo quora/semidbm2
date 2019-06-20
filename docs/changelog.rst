@@ -2,6 +2,11 @@
 Changelog
 =========
 
+0.5.2
+=====
+
+* Fix read-only support
+
 0.5.1
 =====
 
