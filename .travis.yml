@@ -14,5 +14,5 @@ script:
   - coverage run --source semidbm test_semidbm.py
 notifications:
   email:
-    - pankow.ben@gmail.com
+    - asynq@quora.com
 after_success: coveralls
