@@ -25,7 +25,7 @@ Overview
     :target: https://pypi.python.org/pypi/semidbm2/
     :alt: Wheel Status
 
-Semidbm2 is an up-to-date fork of [Semidbm](https://github.com/jamesls/semidbm).
+Semidbm2 is an up-to-date fork of `Semidbm`_.
 
 Semidbm is a fast, pure python implementation of a dbm, which is a
 persistent key value store. It allows you to get and set keys through
@@ -118,3 +118,4 @@ latest changes at the github `repo`_.
 
 .. _github issues: https://github.com/quora/semidbm2/issues
 .. _repo: https://github.com/quora/semidbm2
+.. _Semidbm: https://github.com/jamesls/semidbm
