@@ -48,7 +48,7 @@ these key/value pairs::
 
 It was written with these things in mind:
 
-* Pure python, supporting python 2.6, 2.7, 3.3, and 3.4.
+* Pure python, supporting python 2.7, 3.4, 3.6, and 3.7.
 * Cross platform, works on Windows, Linux, Mac OS X.
 * Supports CPython, pypy, and jython (versions 2.7-b3 and higher).
 * Simple and Fast (See `Benchmarking Semidbm <http://semidbm.readthedocs.org/en/latest/benchmarks.html>`__).
@@ -57,7 +57,7 @@ It was written with these things in mind:
 Supported Python Versions
 =========================
 
-Semidbm supports python 2.6, 2.7, 3.3, and 3.4.
+Semidbm supports python 2.7, 3.4, 3.6, and 3.7.
 
 =============
 Official Docs
@@ -116,5 +116,5 @@ Post feedback and issues on `github issues`_, or check out the
 latest changes at the github `repo`_.
 
 
-.. _github issues: https://github.com/jamesls/semidbm/issues
-.. _repo: https://github.com/jamesls/semidbm
+.. _github issues: https://github.com/quora/semidbm2/issues
+.. _repo: https://github.com/quora/semidbm2
