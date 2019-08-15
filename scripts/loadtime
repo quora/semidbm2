@@ -2,13 +2,13 @@
 import time
 import argparse
 
-import semidbm
+import semidbm2
 
 
 def measure_laod_time(db_path):
     num_loads = 10
     times = []
-    o = semidbm.open
+    o = semidbm2.open
     for  i in range(num_loads):
         start = time.time()
         db = o(db_path, 'c')

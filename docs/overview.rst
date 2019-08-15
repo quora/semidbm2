@@ -38,8 +38,8 @@ Using Semidbm
 
 To create a new db, specify the name of the directory::
 
-    import semidbm
-    db = semidbm.open('mydb', 'c')
+    import semidbm2
+    db = semidbm2.open('mydb', 'c')
 
 This will create a *mydb* directory.  This directory is where semidbm will
 place all the files it needs to keep track of the keys and values stored in the

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# semidbm documentation build configuration file, created by
+# semidbm2 documentation build configuration file, created by
 # sphinx-quickstart on Sun Feb 12 21:08:54 2012.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -42,7 +42,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'semidbm'
+project = u'semidbm2'
 copyright = u'2012, James Saryerwinnie Jr'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -14,9 +14,9 @@ try:
 except ImportError:
     import unittest
 
-import semidbm
-import semidbm.db
-from semidbm.loaders.simpleload import SimpleFileLoader
+import semidbm2
+import semidbm2.db
+from semidbm2.loaders.simpleload import SimpleFileLoader
 
 
 class SemiDBMTest(unittest.TestCase):
@@ -28,7 +28,7 @@ class SemiDBMTest(unittest.TestCase):
         shutil.rmtree(self.tempdir)
 
     def open_db_file(self, **kwargs):
-        return semidbm.open(self.dbdir, 'c', **kwargs)
+        return semidbm2.open(self.dbdir, 'c', **kwargs)
 
     def open_data_file(self, dbdir=None, mode='r'):
         if dbdir is None:
@@ -263,7 +263,7 @@ class TestSemiDBM(SemiDBMTest):
             f.seek(0)
             f.write(b'Z')
         # Opening the db file should now fail.
-        self.assertRaises(semidbm.DBMLoadError, self.open_db_file)
+        self.assertRaises(semidbm2.DBMLoadError, self.open_db_file)
 
     def test_incompatible_version_number(self):
         db = self.open_db_file()
@@ -273,7 +273,7 @@ class TestSemiDBM(SemiDBMTest):
             f.seek(4)
             f.write(struct.pack('!H', 2))
         # Opening the db file should now fail.
-        self.assertRaises(semidbm.DBMLoadError, self.open_db_file)
+        self.assertRaises(semidbm2.DBMLoadError, self.open_db_file)
 
     def test_recover_from_last_failed_write(self):
         # Testing this scenario:
@@ -322,7 +322,7 @@ class TestSemiDBM(SemiDBMTest):
             contents = f.read()
         with self.open_data_file(mode='wb') as f2:
             f2.write(contents[:10])
-        self.assertRaises(semidbm.DBMLoadError, self.open_db_file)
+        self.assertRaises(semidbm2.DBMLoadError, self.open_db_file)
 
     def test_key_size_says_to_read_past_end_of_file(self):
         # We can create this situation by creating an entry
@@ -335,30 +335,30 @@ class TestSemiDBM(SemiDBMTest):
         # 10 bytes.  We'll chop off 8 which means we're missing
         # the checksum, the value, and one byte of the key.
         self.truncate_data_file(bytes_from_end=8)
-        self.assertRaises(semidbm.DBMLoadError, self.open_db_file)
+        self.assertRaises(semidbm2.DBMLoadError, self.open_db_file)
 
 
 @unittest.skipIf(mmap is None, 'mmap required')
 class TestRemapping(SemiDBMTest):
     def setUp(self):
-        import semidbm.loaders.mmapload
+        import semidbm2.loaders.mmapload
         super(TestRemapping, self).setUp()
-        self.original = semidbm.loaders.mmapload._MAPPED_LOAD_PAGES
+        self.original = semidbm2.loaders.mmapload._MAPPED_LOAD_PAGES
         # Change the number of mapped pages to 1 so that we don't have to write
         # as much data.  The logic in the code uses this constant, so changing
         # the value of the constant won't affect the code logic, it'll just
         # make the test run faster.
-        semidbm.loaders.mmapload._MAPPED_LOAD_PAGES = 1
+        semidbm2.loaders.mmapload._MAPPED_LOAD_PAGES = 1
 
     def tearDown(self):
         super(TestRemapping, self).tearDown()
-        semidbm.loaders.mmapload._MAPPED_LOAD_PAGES = self.original
+        semidbm2.loaders.mmapload._MAPPED_LOAD_PAGES = self.original
 
     def test_remap_required(self):
         # Verify the loading buffer logic works.  This is
         # really slow.
         size = (
-            semidbm.loaders.mmapload._MAPPED_LOAD_PAGES *
+            semidbm2.loaders.mmapload._MAPPED_LOAD_PAGES *
             mmap.ALLOCATIONGRANULARITY * 4)
         db = self.open_db_file()
         # 100 byte values.
@@ -379,30 +379,30 @@ class TestReadOnlyMode(SemiDBMTest):
 
         # Ensure db directory exists, since read only mode
         # cannot create the db directory
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         db.close()
         
     def open_db_file(self, **kwargs):
-        return semidbm.open(self.dbdir, 'r', **kwargs)
+        return semidbm2.open(self.dbdir, 'r', **kwargs)
 
     def test_cant_setitem(self):
         db = self.open_db_file()
-        self.assertRaises(semidbm.DBMError, db.__setitem__, 'foo', 'bar')
+        self.assertRaises(semidbm2.DBMError, db.__setitem__, 'foo', 'bar')
         db.close()
 
     def test_cant_sync(self):
         db = self.open_db_file()
-        self.assertRaises(semidbm.DBMError, db.sync)
+        self.assertRaises(semidbm2.DBMError, db.sync)
         db.close()
 
     def test_cant_compact(self):
         db = self.open_db_file()
-        self.assertRaises(semidbm.DBMError, db.compact)
+        self.assertRaises(semidbm2.DBMError, db.compact)
         db.close()
 
     def test_cant_delitem(self):
         db = self.open_db_file()
-        self.assertRaises(semidbm.DBMError, db.__delitem__, 'foo')
+        self.assertRaises(semidbm2.DBMError, db.__delitem__, 'foo')
         db.close()
 
     def test_close_never_compacts_index(self):
@@ -416,7 +416,7 @@ class TestReadOnlyMode(SemiDBMTest):
         self.assertEqual(db.calls, [])
 
     def test_open_read_multiple_times(self):
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         db['foo'] = 'bar'
         db.close()
         # Open then close db immediately.
@@ -427,7 +427,7 @@ class TestReadOnlyMode(SemiDBMTest):
         read_only.close()
 
     def test_can_read_items(self):
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         db['foo'] = 'bar'
         db['bar'] = 'baz'
         db['baz'] = 'foo'
@@ -440,7 +440,7 @@ class TestReadOnlyMode(SemiDBMTest):
         read_only.close()
 
     def test_key_does_not_exist(self):
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         db['foo'] = 'bar'
         db.close()
 
@@ -449,7 +449,7 @@ class TestReadOnlyMode(SemiDBMTest):
         read_only.close()
 
     def test_checksum_failure(self):
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         db[b'key'] = b'value'
         db.close()
         data_file = self.open_data_file(mode='rb')
@@ -461,20 +461,20 @@ class TestReadOnlyMode(SemiDBMTest):
         data_file.write(contents)
         data_file.close()
         db = self.open_db_file(verify_checksums=True)
-        with self.assertRaises(semidbm.DBMChecksumError):
+        with self.assertRaises(semidbm2.DBMChecksumError):
             db['key']
         db.close()
         # If checksums are not enabled, an exception is not raised.
         db = self.open_db_file(verify_checksums=False)
         try:
             db['key']
-        except semidbm.DBMChecksumError:
+        except semidbm2.DBMChecksumError:
             self.fail("Checksums were suppose to be disabled.")
         finally:
             db.close()
 
     def test_unicode_chars(self):
-        db = semidbm.open(self.dbdir, 'c')
+        db = semidbm2.open(self.dbdir, 'c')
         # cafe with the e-accute.
         db[b'caf\xc3\xa9'] = b'caf\xc3\xa9'
         self.assertEqual(db[b'caf\xc3\xa9'], b'caf\xc3\xa9')
@@ -483,17 +483,17 @@ class TestReadOnlyMode(SemiDBMTest):
 
 class TestWriteMode(SemiDBMTest):
     def test_when_index_file_does_not_exist(self):
-        self.assertRaises(semidbm.DBMError, semidbm.open, self.dbdir, 'w')
+        self.assertRaises(semidbm2.DBMError, semidbm2.open, self.dbdir, 'w')
 
     def test_when_data_file_does_not_exist(self):
-        self.assertRaises(semidbm.DBMError, semidbm.open, self.dbdir, 'w')
+        self.assertRaises(semidbm2.DBMError, semidbm2.open, self.dbdir, 'w')
 
     def test_when_files_exist(self):
         db = self.open_db_file()
         db['foo'] = 'bar'
         db.close()
 
-        db_write_mode = semidbm.open(self.dbdir, 'w')
+        db_write_mode = semidbm2.open(self.dbdir, 'w')
         self.assertEqual(db_write_mode['foo'], b'bar')
         db_write_mode.close()
 
@@ -501,21 +501,21 @@ class TestWriteMode(SemiDBMTest):
 class TestNewMode(SemiDBMTest):
     def test_when_file_does_not_exist(self):
         path = os.path.join(self.tempdir, 'foo.db')
-        db = semidbm.open(path, 'n')
+        db = semidbm2.open(path, 'n')
         db['foo'] = 'bar'
         self.assertEqual(db['foo'], b'bar')
         db.close()
 
         # Opening the file again should basically blank out
         # any existing database.
-        db = semidbm.open(path, 'n')
+        db = semidbm2.open(path, 'n')
         self.assertEqual(list(db.keys()), [])
         db.close()
 
 
 class TestInvalidModeArgument(unittest.TestCase):
     def test_invalid_open_arg_raises_exception(self):
-        self.assertRaises(ValueError, semidbm.open, 'foo.db', 'z')
+        self.assertRaises(ValueError, semidbm2.open, 'foo.db', 'z')
 
 
 class TestWithChecksumsOn(TestSemiDBM):
@@ -524,14 +524,14 @@ class TestWithChecksumsOn(TestSemiDBM):
         # to something, default to it being on.
         if 'verify_checksums' not in kwargs:
             kwargs['verify_checksums'] = True
-        return semidbm.open(self.dbdir, 'c', **kwargs)
+        return semidbm2.open(self.dbdir, 'c', **kwargs)
 
 
 class TestSimpleFileLoader(TestSemiDBM):
     def open_db_file(self, **kwargs):
-        kwargs = semidbm.db._create_default_params()
+        kwargs = semidbm2.db._create_default_params()
         kwargs['data_loader'] = SimpleFileLoader()
-        return semidbm.db._SemiDBM(self.dbdir, **kwargs)
+        return semidbm2.db._SemiDBM(self.dbdir, **kwargs)
 
 
 if __name__ == '__main__':

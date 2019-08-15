@@ -73,18 +73,18 @@ When a value is read from disk, semidbm can verify this crc32 checksum.
 By default, this verification step is turned off, but can be enabled using the
 ``verify_checksums`` argument::
 
-    >>> db = semidbm.open('dbname', 'c', verify_checksums=True)
+    >>> db = semidbm2.open('dbname', 'c', verify_checksums=True)
 
 If a checksum error is detected a ``DBMChecksumError`` is raised::
 
     >>> db[b'foo']
     Traceback (most recent call last):
       File "<stdin>", line 1, in <module>
-      File "./semidbm/db.py", line 192, in __getitem__
+      File "./semidbm2/db.py", line 192, in __getitem__
         return self._verify_checksum_data(key, data)
-      File "./semidbm/db.py", line 203, in _verify_checksum_data
+      File "./semidbm2/db.py", line 203, in _verify_checksum_data
         "Corrupt data detected: invalid checksum for key %s" % key)
-    semidbm.db.DBMChecksumError: Corrupt data detected: invalid checksum for key b'foo'
+    semidbm2.db.DBMChecksumError: Corrupt data detected: invalid checksum for key b'foo'
 
 
 Read Only Mode
@@ -95,4 +95,4 @@ want to read values from the database without writing new values you
 can take advantage of this optimized read only mode.  To open a db
 file as read only, use the ``'r'`` option::
 
-    db = semidbm.open('dbname', 'r')
+    db = semidbm2.open('dbname', 'r')

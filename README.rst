@@ -4,7 +4,7 @@ Overview
 
 .. image:: https://secure.travis-ci.org/quora/semidbm2.png?branch=master
    :target: http://travis-ci.org/quora/semidbm2
-	    
+
 .. image:: https://img.shields.io/pypi/v/semidbm2.svg
     :target: https://pypi.python.org/pypi/semidbm2/
     :alt: Latest Version
@@ -31,8 +31,8 @@ Semidbm is a fast, pure python implementation of a dbm, which is a
 persistent key value store. It allows you to get and set keys through
 a dict interface::
 
-    import semidbm
-    db = semidbm.open('testdb', 'c')
+    import semidbm2
+    db = semidbm2.open('testdb', 'c')
     db['foo'] = 'bar'
     print db['foo']
     db.close()
@@ -41,7 +41,7 @@ These values are persisted to disk, and you can later retrieve
 these key/value pairs::
 
     # Then at a later time:
-    db = semidbm.open('testdb', 'r')
+    db = semidbm2.open('testdb', 'r')
     # prints "bar"
     print db['foo']
 

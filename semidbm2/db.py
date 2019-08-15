@@ -11,9 +11,9 @@ import sys
 from binascii import crc32
 import struct
 
-from semidbm.exceptions import DBMLoadError, DBMChecksumError, DBMError
-from semidbm.loaders import _DELETED, FILE_FORMAT_VERSION, FILE_IDENTIFIER
-from semidbm import compat
+from semidbm2.exceptions import DBMLoadError, DBMChecksumError, DBMError
+from semidbm2.loaders import _DELETED, FILE_FORMAT_VERSION, FILE_IDENTIFIER
+from semidbm2 import compat
 
 
 _open = compat.file_open
@@ -295,8 +295,8 @@ class _WindowsRenamer(object):
         # os.rename() does not work if the dst file exists
         # on windows so we have to use our own version that
         # supports atomic renames.
-        import semidbm.win32
-        semidbm.win32.rename(from_file, to_file)
+        import semidbm2.win32
+        semidbm2.win32.rename(from_file, to_file)
 
 
 def _create_default_params(**starting_kwargs):
@@ -308,12 +308,12 @@ def _create_default_params(**starting_kwargs):
     else:
         renamer = _Renamer()
     try:
-        from semidbm.loaders.mmapload import MMapLoader
+        from semidbm2.loaders.mmapload import MMapLoader
         data_loader = MMapLoader()
     except ImportError:
         # If mmap is not available then fall back to the
         # simple non mmap based file loader.
-        from semidbm.loaders.simpleload import SimpleFileLoader
+        from semidbm2.loaders.simpleload import SimpleFileLoader
         data_loader = SimpleFileLoader()
     kwargs.update({'renamer': renamer, 'data_loader': data_loader})
     return kwargs
@@ -326,9 +326,9 @@ def _create_default_params(**starting_kwargs):
 # All the other args after this should have default values
 # so that this function remains compatible with the dbm interface.
 def open(filename, flag='r', mode=0o666, verify_checksums=False):
-    """Open a semidbm database.
+    """Open a semidbm2 database.
 
-    :param filename: The name of the db.  Note that for semidbm,
+    :param filename: The name of the db.  Note that for semidbm2,
         this is actually a directory name.  The argument is named
         `filename` to be compatible with the dbm interface.
 

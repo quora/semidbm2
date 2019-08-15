@@ -3,9 +3,9 @@ import mmap
 import struct
 
 
-from semidbm.loaders import DBMLoader, _DELETED
-from semidbm.exceptions import DBMLoadError
-from semidbm import compat
+from semidbm2.loaders import DBMLoader, _DELETED
+from semidbm2.exceptions import DBMLoadError
+from semidbm2 import compat
 
 
 _MAPPED_LOAD_PAGES = 300

@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 import tempfile
 import os
 
-import semidbm
+import semidbm2
 
 
 try:
@@ -24,7 +24,7 @@ def _rand_bytes(key_length, chars=string.printable):
 
 def populate_db(args):
     path = args.output_dir
-    db = semidbm.open(path, 'c')
+    db = semidbm2.open(path, 'c')
     sys.stdout.write("Populating the DB...\n")
     sys.stdout.write("  - num_keys: %s\n" % args.num_keys)
     sys.stdout.write("  - key_size_bytes: %s\n" % args.key_size_bytes)
