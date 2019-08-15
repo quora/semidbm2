@@ -25,7 +25,7 @@ def main():
     parser.add_option('-s', '--skip-read-chunk', action="store_true",
                       default=False, help="Skip the read chunk test "
                       "(it can take a while to run).")
-    parser.add_option('-d', '--dbm', default='semidbm')
+    parser.add_option('-d', '--dbm', default='semidbm2')
     opts, args = parser.parse_args()
 
     tempdir = tempfile.mkdtemp(prefix='tps')

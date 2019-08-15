@@ -1,6 +1,6 @@
 build/*
 dist/*
-semidbm.egg-info/*
+semidbm2.egg-info/*
 .coverage
 _templates/
 _static/

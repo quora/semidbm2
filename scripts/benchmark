@@ -28,7 +28,7 @@ except NameError:
 random.seed(100)
 
 
-_potential_dbms = ['dbhash', 'dbm', 'gdbm', 'dumbdbm', 'semidbm']
+_potential_dbms = ['dbhash', 'dbm', 'gdbm', 'dumbdbm', 'semidbm2']
 
 ADAPTER_DIR = os.path.join(os.path.dirname(__file__), 'adapters')
 sys.path.append(ADAPTER_DIR)

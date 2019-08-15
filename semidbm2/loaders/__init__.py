@@ -1,7 +1,7 @@
 import struct
 
 
-from semidbm.exceptions import DBMLoadError
+from semidbm2.exceptions import DBMLoadError
 
 
 # Major, Minor version.

@@ -34,9 +34,9 @@ standardized, this is what is required:
 
 To specify what dbm module to use, use the `-d` argument.  The value of this
 argument should the module name of the dbm, for example, to run the benchmarks
-against semidbm::
+against semidbm2::
 
-    scripts/benchmark -d semidbm
+    scripts/benchmark -d semidbm2
 
 The `-d` argument can be specified multiple times.
 

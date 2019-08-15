@@ -2,8 +2,8 @@
 API for semidbm
 ===============
 
-.. autofunction:: semidbm.db.open
+.. autofunction:: semidbm2.db.open
 
 
-.. autoclass:: semidbm.db._SemiDBM
+.. autoclass:: semidbm2.db._SemiDBM
     :members:
