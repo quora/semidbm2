@@ -6,7 +6,7 @@ from semidbm2.exceptions import DBMLoadError
 
 # Major, Minor version.
 FILE_FORMAT_VERSION = (1, 1)
-FILE_IDENTIFIER = b'\x53\x45\x4d\x49'
+FILE_IDENTIFIER = b"\x53\x45\x4d\x49"
 _DELETED = -1
 
 
@@ -33,8 +33,9 @@ class DBMLoader(object):
         sig = header[:4]
         if sig != FILE_IDENTIFIER:
             raise DBMLoadError("File is not a semidbm db file.")
-        major, minor = struct.unpack('!HH', header[4:])
+        major, minor = struct.unpack("!HH", header[4:])
         if major != FILE_FORMAT_VERSION[0]:
             raise DBMLoadError(
-                'Incompatible file version (got: v%s, can handle: v%s)' % (
-                    (major, FILE_FORMAT_VERSION[0])))
+                "Incompatible file version (got: v%s, can handle: v%s)"
+                % ((major, FILE_FORMAT_VERSION[0]))
+            )
