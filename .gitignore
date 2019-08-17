@@ -5,3 +5,5 @@ semidbm2.egg-info/*
 _templates/
 _static/
 _build/
+__pycache__/
+*.py[cod]
