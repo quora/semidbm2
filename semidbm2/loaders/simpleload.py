@@ -11,7 +11,7 @@ class SimpleFileLoader(DBMLoader):
 
     def iter_keys(self, filename):
         # yields keyname, offset, size
-        with open(filename, 'rb') as f:
+        with open(filename, "rb") as f:
             header = f.read(8)
             self._verify_header(header)
             current_offset = 8
@@ -23,18 +23,16 @@ class SimpleFileLoader(DBMLoader):
                     if len(current_contents) > 0:
                         # This means we read a partial header
                         # entry which should never happen.
-                        raise DBMLoadError(
-                            'Error loading db: partial header read')
+                        raise DBMLoadError("Error loading db: partial header read")
                     else:
                         return
-                key_size, val_size = struct.unpack(
-                    '!ii', current_contents)
+                key_size, val_size = struct.unpack("!ii", current_contents)
                 key = f.read(key_size)
                 if len(key) != key_size:
                     raise DBMLoadError(
                         "Error loading db: key size does not match "
-                        "(expected %s bytes, got %s instead."
-                        % (key_size, len(key)))
+                        "(expected %s bytes, got %s instead." % (key_size, len(key))
+                    )
                 value_offset = current_offset + key_size
                 if value_offset + val_size > file_size_bytes:
                     return
@@ -47,5 +45,6 @@ class SimpleFileLoader(DBMLoader):
                 if current_offset > file_size_bytes:
                     raise DBMLoadError(
                         "Error loading db: reading past the "
-                        "end of the file (file possibly truncated)")
+                        "end of the file (file possibly truncated)"
+                    )
                 f.seek(current_offset)

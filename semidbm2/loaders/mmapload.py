@@ -17,7 +17,7 @@ class MMapLoader(DBMLoader):
 
     def iter_keys(self, filename):
         # yields keyname, offset, size
-        f = compat.file_open(filename, 'rb')
+        f = compat.file_open(filename, "rb")
         header = f.read(8)
         self._verify_header(header)
         contents = mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_READ)
@@ -39,10 +39,11 @@ class MMapLoader(DBMLoader):
             while current != max_index:
                 try:
                     key_size, val_size = struct.unpack(
-                        '!ii', contents[current:current+8])
+                        "!ii", contents[current : current + 8]
+                    )
                 except struct.error:
                     raise DBMLoadError()
-                key = contents[current+8:current+8+key_size]
+                key = contents[current + 8 : current + 8 + key_size]
                 if len(key) != key_size:
                     raise DBMLoadError()
                 offset = (remap_size * num_resizes) + current + 8 + key_size
@@ -67,9 +68,12 @@ class MMapLoader(DBMLoader):
                     # Couldn't find an issue for this, but the workaround
                     # is to specify the actual length of the mmap'd region
                     # which is the total size minus the offset we want.
-                    contents = mmap.mmap(f.fileno(), file_size_bytes - offset,
-                                         access=mmap.ACCESS_READ,
-                                         offset=offset)
+                    contents = mmap.mmap(
+                        f.fileno(),
+                        file_size_bytes - offset,
+                        access=mmap.ACCESS_READ,
+                        offset=offset,
+                    )
                     current -= remap_size
                     max_index -= remap_size
         finally:

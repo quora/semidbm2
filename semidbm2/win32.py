@@ -5,8 +5,7 @@ from ctypes.wintypes import LPVOID, DWORD
 LPCTSTR = ctypes.c_wchar_p
 LPTSTR = LPCTSTR
 kernel32 = ctypes.windll.kernel32
-kernel32.ReplaceFile.argtypes = [
-    LPCTSTR, LPCTSTR, LPCTSTR, DWORD, LPVOID, LPVOID]
+kernel32.ReplaceFile.argtypes = [LPCTSTR, LPCTSTR, LPCTSTR, DWORD, LPVOID, LPVOID]
 
 
 def rename(src, dst):
