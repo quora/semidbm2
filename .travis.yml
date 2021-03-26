@@ -9,7 +9,7 @@ python:
   - "pypy"
   - "pypy3"
 install:
-  - pip install coverage coveralls
+  - pip install --upgrade coverage coveralls pip
 script:
   - coverage erase
   - coverage run --source semidbm2 test_semidbm2.py
