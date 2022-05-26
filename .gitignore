@@ -7,3 +7,4 @@ _static/
 _build/
 __pycache__/
 *.py[cod]
+.tox/

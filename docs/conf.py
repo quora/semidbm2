@@ -42,8 +42,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"semidbm2"
-copyright = u"2012, James Saryerwinnie Jr"
+project = "semidbm2"
+copyright = "2012, James Saryerwinnie Jr"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -171,8 +171,8 @@ latex_documents = [
     (
         "index",
         "semidbm.tex",
-        u"semidbm Documentation",
-        u"James Saryerwinnie Jr",
+        "semidbm Documentation",
+        "James Saryerwinnie Jr",
         "manual",
     )
 ]
@@ -203,7 +203,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ("index", "semidbm", u"semidbm Documentation", [u"James Saryerwinnie Jr"], 1)
+    ("index", "semidbm", "semidbm Documentation", ["James Saryerwinnie Jr"], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -219,8 +219,8 @@ texinfo_documents = [
     (
         "index",
         "semidbm",
-        u"semidbm Documentation",
-        u"James Saryerwinnie Jr",
+        "semidbm Documentation",
+        "James Saryerwinnie Jr",
         "semidbm",
         "One line description of project.",
         "Miscellaneous",
