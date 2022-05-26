@@ -1,0 +1,20 @@
+[tool.black]
+target_version = ['py36', 'py37', 'py38', 'py39', 'py310']
+include = '\.pyi?$'
+
+force-exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | typeshed_client/typeshed
+)/
+'''
+
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
